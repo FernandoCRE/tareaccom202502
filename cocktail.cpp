@@ -1,45 +1,43 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 
 void cocktail_sort(int* p, int* q) {
-    if (p > q) return; 
+    if (p > q) return;
+    bool swapped = true;
 
-    while (p < q) {
-        // izquierda - derecha
+    while (p < q && swapped) {
+        swapped = false;
+
+        // izquierda a derecha
         for (int* a = p; a < q; a++) {
             int* b = a + 1;
             if (*a > *b) {
-                int c = *a;
-                *a = *b;
-                *b = c;
+                int c = *a; *a = *b; *b = c;
+                swapped = true;
             }
         }
-        q--; 
+        q--;
 
-        // derecha - izquierda
+        // derecha a izquierda
         for (int* a = q; a > p; a--) {
             int* b = a - 1;
             if (*a < *b) {
-                int c = *a;
-                *a = *b;
-                *b = c;
+                int c = *a; *a = *b; *b = c;
+                swapped = true;
             }
         }
-        p++; 
+        p++;
     }
 }
 
 int main() {
-    int arr[] = { 3,23,20,25,24,11,21,12,26,30,25,3 };
-    int n = 12;
+    int arr[] = { 3, 20, 25 };
+    int n = sizeof(arr) / sizeof(arr[0]);    
 
-    cocktail_sort(arr, arr + n - 1);
+    cocktail_sort(arr, arr + n - 1);         
 
     cout << "arreglo ordenado: ";
-    for (int* x = arr; x <= arr + n - 1; x++) {
-        cout << *x << " ";
-    }
+    for (int i = 0; i < n; i++) cout << arr[i] << " ";
     cout << endl;
-
     return 0;
 }
