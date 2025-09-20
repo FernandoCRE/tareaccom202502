@@ -2,9 +2,9 @@
 using namespace std;
 
 void multi(int (*p)[3][3]) {
-    int *P = &p[0][0][0]; // A[0]
-    int *Q = &p[1][0][0]; // A[1]
-    int *R = &p[2][0][0]; // A[2] 
+    int *P = **(p);
+    int *Q = **(p+1);
+    int *R = **(p+2);
 
     for (int i = 0; i < 3; ++i) {                // 
         int *filaA = P + i*3;
@@ -19,7 +19,7 @@ void multi(int (*p)[3][3]) {
                 ++a;                             // siguiente de la fila
                 b += 3;                          // siguiente de la columna (salto de 3)
             }
-            R_ini[j] = suma;                     // 
+            R_ini[j] = suma;                     
         }
     }
 }
