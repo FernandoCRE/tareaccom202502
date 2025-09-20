@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+
+template <class T, size_t N>
+
+class Cola{
+    T A[N];
+    T *head=nullptr;
+    T *tail=nullptr;
+    T* final = A + N - 1;
+  
+    public:
+        bool push(T val);
+        bool pop(T &val);
+        bool vacio();
+        bool lleno();
+        
+};
+
+template <class T, size_t N>
+
+bool Cola<T,N>::vacio(){
+    if(head == nullptr && tail == nullptr)
+        return true;
+    else
+        return false;
+}
+
+template <class T, size_t N>
+
+bool Cola<T, N>::lleno() {
+    if (vacio()) return false;
+
+    T* siguiente;
+    if (tail == final) {
+        siguiente = A;
+    } else {
+        siguiente = tail + 1;
+    }
+
+    if (siguiente == head)
+        return true;
+    else
+        return false;
+}
+
+template <class T, size_t N>
+bool Cola<T,N>::push(T val){
+    if(lleno())
+        return false;
+        
+    if (vacio()) {
+        head = A;
+        tail = A;
+    } 
+    else{
+        tail++;
+        if (tail > final) 
+            tail = A;
+    }
+    *tail = val;
+    return true;
+}
+
+template <class T, size_t N>
+bool Cola<T,N>::pop(T &val){
+    if(vacio())
+        return false;
+        
+    val=*head;
+    if (head == tail) {
+        head = nullptr;
+        tail = nullptr;
+    } 
+    else {
+        head++;
+        if (head > final) 
+        head = A;
+    }
+    return true;
+}
+
+
+
+int main() {
+    Cola<int, 10> numeros;
+
+    numeros.push(5);
+    numeros.push(6);
+    numeros.push(7);
+
+    int a;
+    numeros.pop(a);
+    cout << a << endl;
+    numeros.pop(a);
+    cout << a << endl;
+    numeros.pop(a);
+    cout << a << endl;
+   
+    return 0;
+}
